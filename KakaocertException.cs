@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Kakaocert
 {
-    class KakaocertException : Exception
+    public class KakaocertException : Exception
     {
-          public KakaocertException()
+        public KakaocertException()
             : base()
         {
         }
-          public KakaocertException(long code, String Message)
+        public KakaocertException(long code, String Message)
             : base(Message)
         {
             this._code = code;
@@ -24,4 +24,5 @@ namespace Kakaocert
             get { return _code; }
         }
     }
+
 }

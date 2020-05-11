@@ -23,6 +23,11 @@ namespace Kakaocert
         {
             get { return _code; }
         }
+        public KakaocertException(Linkhub.LinkhubException le)
+            : base(le.Message, le)
+        {
+            this._code = le.code;
+        }
     }
 
 }

@@ -17,11 +17,7 @@ namespace Kakaocert
         [DataMember]
         public int? state;
         [DataMember]
-        public String receiverHP;
-        [DataMember]
-        public String receiverName;
-        [DataMember]
-        public String receiverBirthday;
+        
         [DataMember]
         public int? expires_in;
         [DataMember]

@@ -13,9 +13,6 @@ namespace Kakaocert
         [DataMember] public String receiptID;
 	    [DataMember] public String regDT;
 	    [DataMember] public int? state;
-	    [DataMember] public String receiverHP;
-	    [DataMember] public String receiverName;
-	    [DataMember] public String receiverBirthday;
 	    [DataMember] public int? expires_in;
 	    [DataMember] public String callCenterNum;
 	    [DataMember] public String token;
@@ -35,10 +32,7 @@ namespace Kakaocert
 	    [DataMember] public String viewDT;
 	    [DataMember] public String completeDT;
 	    [DataMember] public String verifyDT;
-	    [DataMember] public String bankAccountName;
-	    [DataMember] public String bankAccountNum;
-	    [DataMember] public String bankCode;
-	    [DataMember] public String clientUserID;
+	    
     }
 
    

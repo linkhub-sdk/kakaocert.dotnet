@@ -16,7 +16,6 @@ namespace Kakaocert
         public String regDT;
         [DataMember]
         public int? state;
-        [DataMember]
         
         [DataMember]
         public int? expires_in;

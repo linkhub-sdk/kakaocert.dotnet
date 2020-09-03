@@ -284,17 +284,23 @@ namespace Kakaocert
             return response.receiptId;
         }
 
-        public String requestESign (String ClientCode, RequestESign requestObj)
+        public ResponseESignRequest requestESign (String ClientCode, RequestESign requestObj)
+        {
+            return requestESign(ClientCode, requestObj, false);
+        }
+
+         public ResponseESignRequest requestESign (String ClientCode, RequestESign requestObj, bool isAppUseYN)
         {
             if (String.IsNullOrEmpty(ClientCode)) throw new KakaocertException(-99999999, "이용기관코드가 입력되지 않았습니다.");
             if (requestObj == null) throw new KakaocertException(-99999999, "간편 전자서명 요청정보가 입력되지 않았습니다.");
 
+            requestObj.isAppUseYN = isAppUseYN;
 
             String PostData = toJsonString(requestObj);
 
-            ReceiptIDResponse response = httppost<ReceiptIDResponse>("/SignToken/Request", ClientCode, "", PostData, ""); ;
+            ResponseESignRequest response = httppost<ResponseESignRequest>("/SignToken/Request", ClientCode, "", PostData, ""); ;
 
-            return response.receiptId;
+            return response;
         }
 
         public ResultCMS GetCMSResult(String ClientCode, String ReceiptId)
@@ -315,10 +321,23 @@ namespace Kakaocert
 
         public ResultESign GetESignResult(String ClientCode, String ReceiptId)
         {
+
+            return GetESignResult(ClientCode, ReceiptId, null);
+        }
+
+        public ResultESign GetESignResult(String ClientCode, String ReceiptId, String signature)
+        {
             if (String.IsNullOrEmpty(ClientCode)) throw new KakaocertException(-99999999, "이용기관코드가 입력되지 않았습니다.");
             if (String.IsNullOrEmpty(ReceiptId)) throw new KakaocertException(-99999999, "접수아이디가 입력되지 않았습니다.");
 
-            return httpget<ResultESign>("/SignToken/" + ReceiptId, ClientCode, null);
+            string uri = "/SignToken/" + ReceiptId;
+
+            if (signature != null)
+            {
+                uri += "/" + signature;
+            }
+
+            return httpget<ResultESign>(uri, ClientCode, null);
         }
 
 

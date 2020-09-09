@@ -292,7 +292,7 @@ namespace Kakaocert
          public ResponseESignRequest requestESign (String ClientCode, RequestESign requestObj, bool isAppUseYN)
         {
             if (String.IsNullOrEmpty(ClientCode)) throw new KakaocertException(-99999999, "이용기관코드가 입력되지 않았습니다.");
-            if (requestObj == null) throw new KakaocertException(-99999999, "간편 전자서명 요청정보가 입력되지 않았습니다.");
+            if (requestObj == null) throw new KakaocertException(-99999999, "전자서명 요청정보가 입력되지 않았습니다.");
 
             requestObj.isAppUseYN = isAppUseYN;
 
@@ -303,43 +303,67 @@ namespace Kakaocert
             return response;
         }
 
-        public ResultCMS GetCMSResult(String ClientCode, String ReceiptId)
+        public ResultCMS getCMSState(String ClientCode, String ReceiptId)
         {
             if (String.IsNullOrEmpty(ClientCode)) throw new KakaocertException(-99999999, "이용기관코드가 입력되지 않았습니다.");
             if (String.IsNullOrEmpty(ReceiptId)) throw new KakaocertException(-99999999, "접수아이디가 입력되지 않았습니다.");
 
-            return httpget<ResultCMS>("/SignDirectDebit/" + ReceiptId, ClientCode, null);
+            return httpget<ResultCMS>("/SignDirectDebit/Status/" + ReceiptId, ClientCode, null);
         }
 
-        public ResultVerifyAuth GetVerifyAuthResult(String ClientCode, String ReceiptId)
+        public ResultVerifyAuth getVerifyAuthState(String ClientCode, String ReceiptId)
         {
             if (String.IsNullOrEmpty(ClientCode)) throw new KakaocertException(-99999999, "이용기관코드가 입력되지 않았습니다.");
             if (String.IsNullOrEmpty(ReceiptId)) throw new KakaocertException(-99999999, "접수아이디가 입력되지 않았습니다.");
 
-            return httpget<ResultVerifyAuth>("/SignIdentity/" + ReceiptId, ClientCode, null);
+            return httpget<ResultVerifyAuth>("/SignIdentity/Status/" + ReceiptId, ClientCode, null);
         }
 
-        public ResultESign GetESignResult(String ClientCode, String ReceiptId)
-        {
-
-            return GetESignResult(ClientCode, ReceiptId, null);
-        }
-
-        public ResultESign GetESignResult(String ClientCode, String ReceiptId, String signature)
+        public ResultESign getESignState(String ClientCode, String ReceiptId)
         {
             if (String.IsNullOrEmpty(ClientCode)) throw new KakaocertException(-99999999, "이용기관코드가 입력되지 않았습니다.");
             if (String.IsNullOrEmpty(ReceiptId)) throw new KakaocertException(-99999999, "접수아이디가 입력되지 않았습니다.");
 
-            string uri = "/SignToken/" + ReceiptId;
-
-            if (signature != null)
-            {
-                uri += "/" + signature;
-            }
+            string uri = "/SignToken/Status/" + ReceiptId;
 
             return httpget<ResultESign>(uri, ClientCode, null);
         }
 
+        public ResponseVerify verifyCMS(String ClientCode, String ReceiptId)
+        {
+            if (String.IsNullOrEmpty(ClientCode)) throw new KakaocertException(-99999999, "이용기관코드가 입력되지 않았습니다.");
+            if (String.IsNullOrEmpty(ReceiptId)) throw new KakaocertException(-99999999, "접수아이디가 입력되지 않았습니다.");
+
+            return httpget<ResponseVerify>("/SignDirectDebit/Verify/" + ReceiptId, ClientCode, null);
+        }
+
+        public ResponseVerify verifyAuth(String ClientCode, String ReceiptId)
+        {
+            if (String.IsNullOrEmpty(ClientCode)) throw new KakaocertException(-99999999, "이용기관코드가 입력되지 않았습니다.");
+            if (String.IsNullOrEmpty(ReceiptId)) throw new KakaocertException(-99999999, "접수아이디가 입력되지 않았습니다.");
+
+            return httpget<ResponseVerify>("/SignIdentity/Verify/" + ReceiptId, ClientCode, null);
+        }
+
+        public ResponseVerify verifyESign(String ClientCode, String ReceiptId)
+        {
+            return verifyESign(ClientCode, ReceiptId, null);
+        }
+
+        public ResponseVerify verifyESign(String ClientCode, String ReceiptId, String Signature)
+        {
+            if (String.IsNullOrEmpty(ClientCode)) throw new KakaocertException(-99999999, "이용기관코드가 입력되지 않았습니다.");
+            if (String.IsNullOrEmpty(ReceiptId)) throw new KakaocertException(-99999999, "접수아이디가 입력되지 않았습니다.");
+
+            string uri = "/SignToken/Verify/" + ReceiptId;
+
+            if (false == String.IsNullOrEmpty(Signature))
+            {
+                uri += "/" + Signature;
+            }
+
+            return httpget<ResponseVerify>(uri, ClientCode, null);
+        }
 
 
         [DataContract]

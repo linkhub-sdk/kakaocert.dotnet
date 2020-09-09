@@ -76,6 +76,7 @@
     <Compile Include="RequestVerifyAuth.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="ResponseESignRequest.cs" />
+    <Compile Include="ResponseVerify.cs" />
     <Compile Include="ResultCMS.cs" />
     <Compile Include="ResultESign.cs" />
     <Compile Include="ResultVerifyAuth.cs" />

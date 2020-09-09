@@ -21,8 +21,7 @@ namespace Kakaocert
         public int? expires_in;
         [DataMember]
         public String callCenterNum;
-        [DataMember]
-        public String token;
+        
         [DataMember]
         public bool? allowSimpleRegistYN;
 
@@ -42,8 +41,7 @@ namespace Kakaocert
         public String tmstitle;
         [DataMember]
         public String tmsmessage;
-        [DataMember]
-        public String signedData;
+        
         [DataMember]
         public String subClientName;
         [DataMember]

@@ -41,6 +41,8 @@ namespace Kakaocert
         public String  BankCode;
         [DataMember]
         public String ClientUserID;
+        [DataMember]
+        public bool? isAppUseYN;
 
     }
 }

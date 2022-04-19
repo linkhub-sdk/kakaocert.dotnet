@@ -27,6 +27,7 @@ namespace Kakaocert
         private bool _IPRestrictOnOff;
         private bool _UseStaticIP;
         private bool _UseGAIP;
+        private bool _UseLocalTimeYN;
         private String _LinkID;
         private String _SecretKey;
         private Authority _LinkhubAuth;
@@ -49,7 +50,13 @@ namespace Kakaocert
         {
             set { _UseGAIP = value; }
             get { return _UseGAIP; }
-        }   
+        }
+
+        public bool UseLocalTimeYN
+        {
+            set { _UseLocalTimeYN = value; }
+            get { return _UseLocalTimeYN; }
+        }
 
         public KakaocertService(String LinkID, String SecretKey)
         {
@@ -116,7 +123,7 @@ namespace Kakaocert
             bool expired = true;
             if (_token != null)
             {
-                DateTime now = DateTime.Parse(_LinkhubAuth.getTime(UseStaticIP, false, UseGAIP));
+                DateTime now = DateTime.Parse(_LinkhubAuth.getTime(UseStaticIP, UseLocalTimeYN, UseGAIP));
 
                 DateTime expiration = DateTime.Parse(_token.expiration);
 
@@ -130,11 +137,11 @@ namespace Kakaocert
                 {
                     if (_IPRestrictOnOff) // IPRestrictOnOff 사용시
                     {
-                        _token = _LinkhubAuth.getToken(ServiceID, CorpNum, _Scopes, null, UseStaticIP, false, UseGAIP);
+                        _token = _LinkhubAuth.getToken(ServiceID, CorpNum, _Scopes, null, UseStaticIP, UseLocalTimeYN, UseGAIP);
                     }
                     else
                     {
-                        _token = _LinkhubAuth.getToken(ServiceID, CorpNum, _Scopes, "*", UseStaticIP, false, UseGAIP);
+                        _token = _LinkhubAuth.getToken(ServiceID, CorpNum, _Scopes, "*", UseStaticIP, UseLocalTimeYN, UseGAIP);
                     }
 
 

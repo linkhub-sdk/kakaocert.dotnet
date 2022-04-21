@@ -37,9 +37,9 @@ namespace Kakaocert
 
         [DataMember]
         public String  BankAccountName;
-	    [DataMember]
+        [DataMember]
         public String  BankAccountNum;
-	    [DataMember]
+        [DataMember]
         public String  BankCode;
         [DataMember]
         public String ClientUserID;

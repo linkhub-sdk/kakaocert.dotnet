@@ -300,12 +300,12 @@ namespace Kakaocert
             }
         }
 
-        public String requestCMS(String ClientCode, RequestCMS requestObj)
+        public ResponseCMSRequest requestCMS(String ClientCode, RequestCMS requestObj)
         {
             return requestCMS(ClientCode, requestObj, false);
         }
 
-        public String requestCMS(String ClientCode, RequestCMS requestObj, bool isAppUseYN)
+        public ResponseCMSRequest requestCMS(String ClientCode, RequestCMS requestObj, bool isAppUseYN)
         {
             if (String.IsNullOrEmpty(ClientCode)) throw new KakaocertException(-99999999, "이용기관코드가 입력되지 않았습니다.");
             if (requestObj == null) throw new KakaocertException(-99999999, "자동이체 출금동의 요청정보가 입력되지 않았습니다.");
@@ -314,9 +314,9 @@ namespace Kakaocert
 
             String PostData = toJsonString(requestObj);
 
-            ReceiptIDResponse response = httppost<ReceiptIDResponse>("/SignDirectDebit/Request", ClientCode, "", PostData, ""); ;
+            ResponseCMSRequest response = httppost<ResponseCMSRequest>("/SignDirectDebit/Request", ClientCode, "", PostData, ""); ;
 
-            return response.receiptId;
+            return response;
         }
 
         public String requestVerifyAuth(String ClientCode, RequestVerifyAuth requestObj)
